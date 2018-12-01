@@ -14,7 +14,6 @@ import (
 
 func main() {
 
-	// flag.String("Description:", "--help", "myip is a tiny utility which pint the internal and external IP address.\nAlso myip print the adpater interface where local IP is loacted.\n")
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "'myip' is a tiny utility which print the internal and external IP address.\nAlso myip show the adapter name where local IP is located.\nUsage: myip [no arguments are required].\n")
 	}

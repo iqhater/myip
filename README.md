@@ -1,9 +1,6 @@
 
 <h1 align="center">myip</h1>
 
-"myip" is a tiny utility to show external and local IP with binded adapter name.
-
-
 ## How To Install
 ```
 go get github.com\iqhater\myip

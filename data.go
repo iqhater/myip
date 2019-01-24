@@ -7,6 +7,7 @@ import (
 	"net"
 	"net/http"
 	"strings"
+	"time"
 )
 
 // IPinfo data struct
@@ -20,7 +21,12 @@ type IPinfo struct {
 
 func (i *IPinfo) getExternalIP(url string) *IPinfo {
 
-	resp, err := http.Get(url)
+	timeout := time.Duration(10 * time.Second)
+	client := http.Client{
+		Timeout: timeout,
+	}
+
+	resp, err := client.Get(url)
 	if err != nil {
 		log.Println(err)
 		return &IPinfo{ExtIP: "Can't get the remote IP. Bad response from host!"}

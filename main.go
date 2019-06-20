@@ -10,6 +10,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
+
+	"github.com/iqhater/myip/data"
 )
 
 func main() {
@@ -19,10 +21,10 @@ func main() {
 	}
 	flag.Parse()
 
-	i := &IPinfo{}
+	d := data.NewIPData()
 
-	i.getExternalIP("https://api.myip.com/")
-	i.getInternalIP()
-	i.getAdapterName()
-	i.printResults()
+	d.GetExternalIP("https://api.myip.com/")
+	d.GetInternalIP()
+	d.GetAdapterName()
+	d.PrintResults()
 }

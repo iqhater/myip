@@ -10,6 +10,7 @@ type IPData struct {
 	ExternalData
 }
 
+// NewIPData constructor init new *IPData struct
 func NewIPData() *IPData {
 	return &IPData{}
 }

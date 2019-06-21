@@ -1,5 +1,10 @@
 
 <h1 align="center">myip</h1>
+<div align="center">
+    <a href="https://goreportcard.com/report/github.com/iqhater/myip">
+    <img src="https://goreportcard.com/badge/github.com/iqhater/myip?style=flat-square" alt="go-report-card">
+    </a>
+</div>
 
 ## How To Install
 ```

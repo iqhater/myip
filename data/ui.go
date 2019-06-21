@@ -9,7 +9,7 @@ import (
 // out wrtire for test check output something...
 var out io.Writer = os.Stdout
 
-// PrintResults print all recived ip data
+// PrintResults print all received ip data
 func (d *IPData) PrintResults() {
 
 	fmt.Fprintln(out, "Local interface name:", d.AdapterName)

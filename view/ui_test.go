@@ -1,16 +1,18 @@
-package data
+package view
 
 import (
 	"bytes"
 	"fmt"
 	"os"
 	"testing"
+
+	"github.com/iqhater/myip/data"
 )
 
 func TestPrintResults(t *testing.T) {
 
 	// arrange
-	d := NewIPData()
+	d := data.NewIPData()
 	d.GetExternalIP("https://api.myip.com/")
 	d.GetInternalIP()
 	d.GetAdapterName()
@@ -20,7 +22,7 @@ func TestPrintResults(t *testing.T) {
 	defer buf.Reset()
 
 	// act
-	d.PrintResults()
+	PrintResults(d)
 	n, err := fmt.Fprintln(os.Stdout, buf.String())
 
 	// assert

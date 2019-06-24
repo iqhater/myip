@@ -12,12 +12,13 @@ import (
 	"os"
 
 	"github.com/iqhater/myip/data"
+	v "github.com/iqhater/myip/view"
 )
 
 func main() {
 
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "'myip' is a tiny utility which print the internal and external IP address.\nAlso myip show the adapter name where local IP is located.\nUsage: myip [no arguments are required].\n")
+		fmt.Fprintf(os.Stderr, "'myip' is a tiny utility that shows the internal and external IP address.\nAlso 'myip' shows the adapter name where local IP is located.\nUsage: myip [no arguments are required].\n")
 	}
 	flag.Parse()
 
@@ -26,5 +27,5 @@ func main() {
 	d.GetExternalIP("https://api.myip.com/")
 	d.GetInternalIP()
 	d.GetAdapterName()
-	d.PrintResults()
+	v.PrintResults(d)
 }

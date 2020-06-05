@@ -16,11 +16,11 @@ type ExternalData struct {
 }
 
 // GetExternalIP method get response from url and return new ExternalData struct what is for???
-func (e *ExternalData) GetExternalIP(url string) *ExternalData {
+func (e *ExternalData) GetExternalIP(url string, timeout time.Duration) *ExternalData {
 
-	timeout := time.Duration(20 * time.Second)
+	t := time.Duration(timeout * time.Second)
 	client := http.Client{
-		Timeout: timeout,
+		Timeout: t,
 	}
 
 	resp, err := client.Get(url)

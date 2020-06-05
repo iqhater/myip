@@ -24,8 +24,16 @@ func main() {
 
 	d := data.NewIPData()
 
-	d.GetExternalIP("https://api.myip.com/")
 	d.GetInternalIP()
 	d.GetAdapterName()
-	v.PrintResults(d)
+	v.PrintInternal(d)
+
+	done := make(chan struct{})
+	go func() {
+		d.GetExternalIP("https://api.myip.com/", 20)
+		close(done)
+	}()
+	<-done
+
+	v.PrintExternal(d)
 }

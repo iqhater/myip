@@ -11,7 +11,7 @@ func TestGetExternalIPNotEmpty(t *testing.T) {
 	url := "https://api.myip.com/"
 
 	// act
-	result := e.GetExternalIP(url)
+	result := e.GetExternalIP(url, 1)
 
 	// assert
 	if result.ExtIP == "" || result.Country == "" || result.CountryCode == "" {
@@ -26,7 +26,7 @@ func TestGetExternalIPBadURL(t *testing.T) {
 	url := "https://badurl.com"
 
 	// act
-	result := e.GetExternalIP(url)
+	result := e.GetExternalIP(url, 1)
 
 	// assert
 	if result.ExtIP != "Can't get the remote IP. Bad response from host!" {

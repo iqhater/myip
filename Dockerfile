@@ -10,10 +10,10 @@
 ################################################################
 
 #name of base image
-FROM golang:alpine
+FROM golang:1.14
 
-#Need to enable to run tests!
-ENV CGO_ENABLED=0
+#need to enable to run tests!
+ENV CGO_ENABLED=1
 
 #create a folder where our program will be located
 RUN mkdir -p /go/src/github.com/iqhater/myip
@@ -21,8 +21,8 @@ RUN mkdir -p /go/src/github.com/iqhater/myip
 #set a working directory with a created folder
 WORKDIR /go/src/github.com/iqhater/myip
 
-#Copy all files from source to the Docker's path in the image's filesystem
-COPY . /go/src/github.com/iqhater/myip
+#copy all files from source to the Docker's path in the image's filesystem
+COPY . /go/src/myip
 
 #run test with coverage and verbose output.
-CMD cd /go/src/github.com/iqhater/myip/ && go test -v -cover ./...
+CMD cd /go/src/myip/data && go test -race -v -cover ./...

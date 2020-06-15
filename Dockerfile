@@ -22,7 +22,7 @@ RUN mkdir -p /go/src/github.com/iqhater/myip
 WORKDIR /go/src/github.com/iqhater/myip
 
 #copy all files from source to the Docker's path in the image's filesystem
-COPY . /go/src/myip
+COPY . /go/src/github.com/iqhater/myip
 
 #run test with coverage and verbose output.
-CMD cd /go/src/myip/data && go test -race -v -cover ./...
+CMD cd /go/src/github.com/iqhater/myip && go test -race -v -cover ./...

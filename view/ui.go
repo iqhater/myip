@@ -11,7 +11,7 @@ import (
 // out wrtire for test check output something...
 var out io.Writer = os.Stdout
 
-// PrintResults print all internal ip data
+// PrintInternal print all internal ip data
 func PrintInternal(d *data.IPData) {
 	fmt.Fprintln(out, "Local interface name:", d.AdapterName)
 	fmt.Fprintln(out, "Internal IP:", d.IntIP)

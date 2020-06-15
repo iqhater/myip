@@ -1,9 +1,3 @@
-// Compile binary for Raspberry Pi (linux)
-// env GOOS=darwin GOARCH=amd64 go build
-
-// Remove Symbol and Debug info at compile
-// go build -ldflags "-s -w"
-
 package main
 
 import (

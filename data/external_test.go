@@ -11,7 +11,7 @@ func TestGetExternalIPNotEmpty(t *testing.T) {
 	url := "https://api.myip.com/"
 
 	// act
-	result := e.GetExternalIP(url, 1)
+	result := e.GetExternalIP(url, 5)
 
 	// assert
 	if result.ExtIP == "" || result.Country == "" || result.CountryCode == "" {

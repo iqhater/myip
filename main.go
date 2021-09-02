@@ -24,7 +24,7 @@ func main() {
 
 	done := make(chan struct{})
 	go func() {
-		d.GetExternalIP("https://api.myip.com/", 20)
+		d.GetExternalIP("https://ip.seeip.org/geoip", 20)
 		close(done)
 	}()
 	<-done

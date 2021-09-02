@@ -1,16 +1,5 @@
-#build our docker image with name iqhater/myip
-#docker build -t iqhater/myip .
-
-#run our docker container afterwards remove himself
-#docker run --rm -it iqhater/myip:latest
-
-#Docker Remove All <none> images (only run in bash terminal)
-#docker rmi $(docker images -f "dangling=true" -q)
-
-################################################################
-
 #name of base image
-FROM golang:1.14
+FROM golang:latest
 
 #need to enable to run tests!
 ENV CGO_ENABLED=1

@@ -12,7 +12,8 @@ import (
 type ExternalData struct {
 	ExtIP       string `json:"ip"`
 	Country     string `json:"country"`
-	CountryCode string `json:"cc"`
+	CountryCode string `json:"country_code"`
+	Region      string `json:"region"`
 }
 
 // GetExternalIP method get response from url and return new ExternalData struct what is for???
@@ -40,5 +41,6 @@ func (e *ExternalData) GetExternalIP(url string, timeout time.Duration) *Externa
 		ExtIP:       e.ExtIP,
 		Country:     e.Country,
 		CountryCode: e.CountryCode,
+		Region:      e.Region,
 	}
 }

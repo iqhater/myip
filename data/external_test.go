@@ -8,14 +8,14 @@ func TestGetExternalIPNotEmpty(t *testing.T) {
 
 	// arrange
 	e := ExternalData{}
-	url := "https://api.myip.com/"
+	url := "https://ip.seeip.org/geoip"
 
 	// act
 	result := e.GetExternalIP(url, 5)
 
 	// assert
-	if result.ExtIP == "" || result.Country == "" || result.CountryCode == "" {
-		t.Errorf("Result struct must not be empty! ExtIP:%s Country:%s CountryCode: %s\n", result.ExtIP, result.Country, result.CountryCode)
+	if result.ExtIP == "" || result.Country == "" || result.CountryCode == "" || result.Region == "" {
+		t.Errorf("Result struct must not be empty! ExtIP:%s Country:%s CountryCode: %s Region: %s\n", result.ExtIP, result.Country, result.CountryCode, result.Region)
 	}
 }
 

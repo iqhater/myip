@@ -9,7 +9,7 @@ import (
 func TestGetExternalIPNotEmpty(t *testing.T) {
 
 	// arrange
-	e := &ExternalData{}
+	e := ExternalData{}
 	url := "https://api.myip.com/"
 
 	// act

@@ -8,7 +8,7 @@ import (
 	"github.com/iqhater/myip/data"
 )
 
-// out wrtire for test check output something...
+// out writer for test check output something...
 var out io.Writer = os.Stdout
 
 // PrintInternal print all internal ip data

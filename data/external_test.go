@@ -1,21 +1,30 @@
 package data
 
 import (
+	"log"
 	"testing"
+	"time"
 )
 
 func TestGetExternalIPNotEmpty(t *testing.T) {
 
 	// arrange
-	e := ExternalData{}
-	url := "https://ip.seeip.org/geoip"
+	e := &ExternalData{}
+	url := "https://api.myip.com/"
 
 	// act
-	result := e.GetExternalIP(url, 5)
+	timeout, err := time.ParseDuration("5s")
+	if err != nil {
+		log.Println("Can't parse timeout duration: ", err)
+	}
+	err = e.GetExternalIP(url, timeout)
+	if err != nil {
+		t.Error(err)
+	}
 
 	// assert
-	if result.ExtIP == "" || result.Country == "" || result.CountryCode == "" || result.Region == "" {
-		t.Errorf("Result struct must not be empty! ExtIP:%s Country:%s CountryCode: %s Region: %s\n", result.ExtIP, result.Country, result.CountryCode, result.Region)
+	if e.ExtIP == "" {
+		t.Errorf("Result ip field must not be empty! ExtIP:%s\n", e.ExtIP)
 	}
 }
 
@@ -26,10 +35,11 @@ func TestGetExternalIPBadURL(t *testing.T) {
 	url := "https://badurl.com"
 
 	// act
-	result := e.GetExternalIP(url, 1)
+	timeout, _ := time.ParseDuration("1s")
+	err := e.GetExternalIP(url, timeout)
 
 	// assert
-	if result.ExtIP != "Can't get the remote IP. Bad response from host!" {
-		t.Errorf("Bad url address! Enter the correct URL. %s\n", result.ExtIP)
+	if err == nil {
+		t.Errorf("Bad url address! Enter the correct URL. %s\n", err)
 	}
 }

@@ -2,8 +2,8 @@ package data
 
 import (
 	"encoding/json"
-	"io/ioutil"
-	"log"
+	"errors"
+	"io"
 	"net/http"
 	"time"
 )
@@ -12,35 +12,37 @@ import (
 type ExternalData struct {
 	ExtIP       string `json:"ip"`
 	Country     string `json:"country"`
-	CountryCode string `json:"country_code"`
+	CountryCode string `json:"cc"`
 	Region      string `json:"region"`
 }
 
 // GetExternalIP method get response from url and return new ExternalData struct what is for???
-func (e *ExternalData) GetExternalIP(url string, timeout time.Duration) *ExternalData {
+func (e *ExternalData) GetExternalIP(url string, timeout time.Duration) error {
 
-	t := time.Duration(timeout * time.Second)
+	t := time.Duration(timeout)
 	client := http.Client{
 		Timeout: t,
 	}
 
 	resp, err := client.Get(url)
 	if err != nil {
-		log.Println(err)
-		return &ExternalData{ExtIP: "Can't get the remote IP. Bad response from host!"}
+		return err
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
-	checkErr(err)
+	if resp.StatusCode != 200 {
+		return errors.New("Bad response (not 200 status) from host!")
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
 
 	err = json.Unmarshal(body, &e)
-	checkErr(err)
-
-	return &ExternalData{
-		ExtIP:       e.ExtIP,
-		Country:     e.Country,
-		CountryCode: e.CountryCode,
-		Region:      e.Region,
+	if err != nil {
+		return err
 	}
+
+	return nil
 }

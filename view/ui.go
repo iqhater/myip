@@ -19,8 +19,20 @@ func PrintInternal(d *data.IPData) {
 
 // PrintExternal print all external ip data
 func PrintExternal(d *data.IPData) {
-	fmt.Fprintln(out, "External IP:", d.ExtIP)
-	fmt.Fprintln(out, "Country:", d.Country)
-	fmt.Fprintln(out, "Country Code:", d.CountryCode)
-	fmt.Fprintln(out, "Region:", d.Region)
+
+	if d.ExtIP != "" {
+		fmt.Fprintln(out, "External IP:", d.ExtIP)
+	}
+
+	if d.Country != "" {
+		fmt.Fprintln(out, "Country:", d.Country)
+	}
+
+	if d.CountryCode != "" {
+		fmt.Fprintln(out, "Country Code:", d.CountryCode)
+	}
+
+	if d.Region != "" {
+		fmt.Fprintln(out, "Region:", d.Region)
+	}
 }

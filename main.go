@@ -1,9 +1,12 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
+	"log"
 	"os"
+	"time"
 
 	"github.com/iqhater/myip/data"
 	v "github.com/iqhater/myip/view"
@@ -22,12 +25,50 @@ func main() {
 	d.GetAdapterName()
 	v.PrintInternal(d)
 
+	sources := []string{
+		"https://api.myip.com/",
+		"https://api.miip.my",
+		"https://ip.seeip.org/geoip",
+		"https://api64.ipify.org?format=json",
+		"https://api.myip.la/en?json",
+		"https://ipapi.co/ip/",
+		"https://api.seeip.org/jsonip",
+		"https://myip.arens.online/json",
+	}
+
+	timeout, err := time.ParseDuration("10s")
+	if err != nil {
+		log.Println("Can't parse timeout duration: ", err)
+	}
+
 	done := make(chan struct{})
-	go func() {
-		d.GetExternalIP("https://ip.seeip.org/geoip", 20)
-		close(done)
-	}()
+	ctx, cancel := context.WithCancel(context.Background())
+
+	for _, url := range sources {
+
+		url := url
+
+		go func(ctx context.Context) {
+
+			for {
+				select {
+				case <-ctx.Done():
+					done <- struct{}{}
+					return
+				default:
+					err := d.GetExternalIP(url, timeout)
+					if err == nil {
+						cancel()
+						return
+					}
+					// debug errors
+					// log.Println(err)
+				}
+			}
+		}(ctx)
+	}
 	<-done
+	close(done)
 
 	v.PrintExternal(d)
 }

@@ -68,7 +68,7 @@ func main() {
 		}(ctx)
 	}
 	<-done
-	close(done)
+	defer close(done)
 
 	v.PrintExternal(d)
 }

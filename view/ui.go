@@ -5,6 +5,7 @@ import (
 	"io"
 	"os"
 
+	"github.com/fatih/color"
 	"github.com/iqhater/myip/data"
 )
 
@@ -13,26 +14,26 @@ var out io.Writer = os.Stdout
 
 // PrintInternal print all internal ip data
 func PrintInternal(d *data.IPData) {
-	fmt.Fprintln(out, "Local interface name:", d.AdapterName)
-	fmt.Fprintln(out, "Internal IP:", d.IntIP)
+	color.New(color.FgMagenta).Fprintln(out, "Local interface name:", d.AdapterName)
+	fmt.Fprintln(out, "	 Internal IP:", d.IntIP)
 }
 
 // PrintExternal print all external ip data
 func PrintExternal(d *data.IPData) {
 
 	if d.ExtIP != "" {
-		fmt.Fprintln(out, "External IP:", d.ExtIP)
+		color.New(color.FgGreen).Fprintln(out, "	 External IP:", d.ExtIP)
 	}
 
 	if d.Country != "" {
-		fmt.Fprintln(out, "Country:", d.Country)
+		fmt.Fprintln(out, "	     Country:", d.Country)
 	}
 
 	if d.CountryCode != "" {
-		fmt.Fprintln(out, "Country Code:", d.CountryCode)
+		fmt.Fprintln(out, "	Country Code:", d.CountryCode)
 	}
 
 	if d.Region != "" {
-		fmt.Fprintln(out, "Region:", d.Region)
+		fmt.Fprintln(out, "	      Region:", d.Region)
 	}
 }

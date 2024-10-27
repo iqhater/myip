@@ -13,7 +13,7 @@ func TestGetInternalIP(t *testing.T) {
 
 	// assert
 	if result == "" {
-		t.Errorf("Wrong internal IP address! Shoud be fromat like this XX.XX.XX.XX %s\n", result)
+		t.Errorf("Wrong internal IP address! Shoud be format like this XX.XX.XX.XX %s\n", result)
 	}
 }
 

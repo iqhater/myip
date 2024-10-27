@@ -1,6 +1,7 @@
 package data
 
 import (
+	"errors"
 	"net"
 	"strings"
 )
@@ -15,7 +16,12 @@ type InternalData struct {
 func (i *InternalData) GetInternalIP() {
 
 	conn, err := net.Dial("udp", "8.8.8.8:80")
-	checkErr(err)
+
+	defer func() {
+		if r := recover(); r != nil {
+			checkErr(errors.Join(err, r.(error)))
+		}
+	}()
 	defer conn.Close()
 
 	localAddr := conn.LocalAddr().(*net.UDPAddr)

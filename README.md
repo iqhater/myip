@@ -8,32 +8,44 @@
     </a>
 </div>
 
-## How To Install
+`myip` is a simple and convenient CLI tool for retrieving your local and external IP address.
 
-```
-go get github.com\iqhater\myip
-```
+## 🚀 Installation
 
-Add to your system PATH for convenience to run "myip" at anywhere
+Install `myip` using `go install`:
 
-```
-export PATH=:~\github.com\iqhater\myip
+```sh
+go install github.com/iqhater/myip@latest
 ```
 
-## How to Use
+Then, add it to your `PATH` if necessary:
 
-Type "myip" at your CLI.
-
-```
-:~$ myip
-Interface Name: vEthernet (hyperV-external)
-Internal IP: 10.180.0.60
-External IP: 42.30.210.106
-Country: Netherlands
-Country Code: NL
-Region: Groningen
+```sh
+export PATH=$HOME/go/bin:$PATH
 ```
 
-## License
+## 🛠 Usage
 
-[MIT License](LICENSE)
+Simply run the command:
+
+```sh
+myip
+```
+
+You will get the following output:
+
+```sh
+Local interface name: vEthernet (hyperV-external)
+  Internal IP (IPv4): 10.180.0.60
+  External IP (IPv4): 42.30.210.106
+             Country: Netherlands
+        Country Code: NL
+```
+
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+💡 *Star us on GitHub if you like this project!* ⭐

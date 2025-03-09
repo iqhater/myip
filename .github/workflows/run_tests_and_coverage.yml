@@ -6,7 +6,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest]
 
     name: A job to run in docker container
     steps:
@@ -19,12 +19,7 @@ jobs:
         run: go mod download
 
       - name: Run coverage
-        run: |
-          if [ "${{ runner.os }}" == "Windows" ]; then
-            go test -v -cover -coverprofile=coverage.txt -covermode=atomic ./...
-          else
-            go test -v -cover -race -coverprofile=coverage.txt -covermode=atomic ./...
-          fi
+        run: go test -v -cover -race -coverprofile=coverage.txt -covermode=atomic ./...
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5

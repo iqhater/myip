@@ -19,7 +19,12 @@ jobs:
         run: go mod download
 
       - name: Run coverage
-        run: go test -v -cover -race -coverprofile=coverage.txt -covermode=atomic ./...
+        run: |
+          if [ "${{ runner.os }}" == "Windows" ]; then
+            go test -v -cover -coverprofile=coverage.txt -covermode=atomic ./...
+          else
+            go test -v -cover -race -coverprofile=coverage.txt -covermode=atomic ./...
+          fi
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5

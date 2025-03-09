@@ -1,7 +1,7 @@
 <h1 align="center">myip</h1>
 <div align="center">
-    <a href="https://codecov.io/gh/iqhater/myip">
-        <img src="https://codecov.io/gh/iqhater/myip/branch/master/graph/badge.svg" />
+    <a href="https://codecov.io/gh/iqhater/myip" >
+        <img src="https://codecov.io/gh/iqhater/myip/graph/badge.svg?token=dt0toOSaag"/>
     </a>
     <a href="https://goreportcard.com/report/github.com/iqhater/myip">
         <img src="https://goreportcard.com/badge/github.com/iqhater/myip?style=flat-square" alt="go-report-card">

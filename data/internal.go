@@ -3,13 +3,13 @@ package data
 import (
 	"errors"
 	"net"
-	"strings"
 )
 
 // InternalData struct is a local adapter and local ip data.
 type InternalData struct {
-	AdapterName string
-	IntIP       string
+	AdapterName   string
+	IntIP         string
+	IPAddressType IPType
 }
 
 // GetInternalIP get internal local ip addess.
@@ -31,21 +31,36 @@ func (i *InternalData) GetInternalIP() {
 // GetAdapterName get the current local adapter name.
 func (i *InternalData) GetAdapterName() {
 
-	l, err := net.Interfaces()
+	// get all network interfaces
+	networkInterfaces, err := net.Interfaces()
 	checkErr(err)
 
-	for _, f := range l {
+	// loop through all network interfaces
+	for _, networkInterface := range networkInterfaces {
 
-		byNameInterface, err := net.InterfaceByName(f.Name)
+		// get interface info
+		interfaceInfo, err := net.InterfaceByName(networkInterface.Name)
 		checkErr(err)
 
-		addr, err := byNameInterface.Addrs()
+		addresses, err := interfaceInfo.Addrs()
 		checkErr(err)
 
-		for _, v := range addr {
+		// loop through all addresses of the current interface
+		for _, address := range addresses {
 
-			if v.String()[:strings.Index(v.String(), "/")] == i.IntIP {
-				i.AdapterName = f.Name
+			// parse ip address
+			ipAddr, _, err := net.ParseCIDR(address.String())
+			checkErr(err)
+
+			// get type of ip address (IPv4 or IPv6)
+			ipType, err := getIPType(ipAddr.String())
+			checkErr(err)
+
+			// check if ip address match local ip address
+			if ipAddr.String() == i.IntIP {
+				i.AdapterName = networkInterface.Name
+				i.IPAddressType = ipType
+				return
 			}
 		}
 	}

@@ -8,7 +8,7 @@
     </a>
 </div>
 
-`myip` is a simple and convenient CLI tool for retrieving your local and external IP address.
+`myip` is a simple and convenient CLI tool for retrieving your local and external (public) IP address.
 
 ## 🚀 Installation
 
@@ -36,8 +36,8 @@ You will get the following output:
 
 ```sh
 Local interface name: vEthernet (hyperV-external)
-  Internal IP (IPv4): 10.180.0.60
-  External IP (IPv4): 42.30.210.106
+     Local IP (IPv4): 10.180.0.60
+    Public IP (IPv4): 42.30.210.106
              Country: Netherlands
         Country Code: NL
 ```

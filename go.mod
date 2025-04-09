@@ -1,8 +1,11 @@
 module github.com/iqhater/myip
 
-go 1.21
+go 1.24
 
-require github.com/fatih/color v1.17.0
+require (
+	github.com/fatih/color v1.17.0
+	go.uber.org/goleak v1.3.0
+)
 
 require (
 	github.com/mattn/go-colorable v0.1.13 // indirect

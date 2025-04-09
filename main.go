@@ -8,22 +8,27 @@ import (
 	"os"
 	"time"
 
-	"github.com/iqhater/myip/data"
+	"github.com/iqhater/myip/network"
 	v "github.com/iqhater/myip/view"
 )
 
 func main() {
 
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "'myip' is a tiny utility that shows the internal and external IP address.\nAlso 'myip' shows the adapter name where local IP is located.\nUsage: myip [no arguments are required].\n")
+		fmt.Fprintf(os.Stderr, "'myip' - A utility that displays your IP addresses\n\n"+
+			"Description:\n"+
+			"  - Shows both internal and external IP addresses\n"+
+			"  - Displays the network adapter name for your local IP\n"+
+			"  - Retrieves country and region information\n\n"+
+			"Usage: myip [no arguments required]\n")
 	}
 	flag.Parse()
 
-	d := data.NewIPData()
+	n := network.NewInfo()
 
-	d.GetInternalIP()
-	d.GetAdapterName()
-	v.PrintInternal(d)
+	n.GetLocalIP()
+	n.GetAdapterName()
+	v.PrintLocalInfo(n)
 
 	sources := []string{
 		"https://api.myip.com/",
@@ -36,19 +41,19 @@ func main() {
 		"https://myip.arens.online/json",
 	}
 
-	timeout, err := time.ParseDuration("10s")
+	timeout, err := time.ParseDuration("15s")
 	if err != nil {
 		log.Println("Can't parse timeout duration: ", err)
 	}
 
 	done := make(chan struct{})
-	ctx, cancel := context.WithCancel(context.Background())
+	defer close(done)
+
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 
 	for _, url := range sources {
 
-		url := url
-
-		go func(ctx context.Context) {
+		go func() {
 
 			for {
 				select {
@@ -56,7 +61,7 @@ func main() {
 					done <- struct{}{}
 					return
 				default:
-					err := d.GetExternalIP(url, timeout)
+					err := n.GetPublicIP(url, timeout)
 					if err == nil {
 						cancel()
 						return
@@ -65,10 +70,9 @@ func main() {
 					// log.Println(err)
 				}
 			}
-		}(ctx)
+		}()
 	}
 	<-done
-	defer close(done)
 
-	v.PrintExternal(d)
+	v.PrintPublicInfo(n)
 }

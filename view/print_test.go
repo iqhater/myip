@@ -6,48 +6,49 @@ import (
 	"os"
 	"testing"
 
-	"github.com/iqhater/myip/data"
+	"github.com/iqhater/myip/network"
 )
 
-func TestPrintInternal(t *testing.T) {
+func TestPrintLocalInfo(t *testing.T) {
 
 	// arrange
-	d := data.NewIPData()
+	d := network.NewInfo()
 	d.AdapterName = "test_adapter_name"
-	d.IntIP = "192.168.1.44"
+	d.LocalIP = "192.168.1.44"
 
 	buf := &bytes.Buffer{}
 	out = buf
 	defer buf.Reset()
 
 	// act
-	PrintInternal(d)
+	PrintLocalInfo(d)
 	n, err := fmt.Fprintln(os.Stdout, buf.String())
 
 	// assert
 	if n <= 1 || err != nil {
-		t.Errorf("Bad PrintInternal! %d, %v\n", n, err)
+		t.Errorf("Bad PrintLocalInfo! %d, %v\n", n, err)
 	}
 }
 
-func TestPrintExternal(t *testing.T) {
+func TestPrintPublicInfo(t *testing.T) {
 
 	// arrange
-	d := data.NewIPData()
-	d.ExtIP = "78.67.56.89"
+	d := network.NewInfo()
+	d.PublicIP = "78.67.56.89"
 	d.Country = "Russian Federation"
 	d.CountryCode = "RU"
+	d.Region = "Moscow"
 
 	buf := &bytes.Buffer{}
 	out = buf
 	defer buf.Reset()
 
 	// act
-	PrintExternal(d)
+	PrintPublicInfo(d)
 	n, err := fmt.Fprintln(os.Stdout, buf.String())
 
 	// assert
 	if n <= 1 || err != nil {
-		t.Errorf("Bad PrintInternal! %d, %v\n", n, err)
+		t.Errorf("Bad PrintlLocalInfo! %d, %v\n", n, err)
 	}
 }

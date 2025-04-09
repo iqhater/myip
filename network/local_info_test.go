@@ -1,15 +1,15 @@
-package data
+package network
 
 import "testing"
 
-func TestGetInternalIP(t *testing.T) {
+func TestGetLocalIPOK(t *testing.T) {
 
 	// arrange
-	i := InternalData{}
+	l := LocalInfo{}
 
 	// act
-	i.GetInternalIP()
-	result := i.IntIP
+	l.GetLocalIP()
+	result := l.LocalIP
 
 	// assert
 	if result == "" {
@@ -17,15 +17,15 @@ func TestGetInternalIP(t *testing.T) {
 	}
 }
 
-func TestGetAdapterName(t *testing.T) {
+func TestGetAdapterNameOK(t *testing.T) {
 
 	// arrange
-	i := InternalData{}
-	i.GetInternalIP()
+	l := LocalInfo{}
+	l.GetLocalIP()
 
 	// act
-	i.GetAdapterName()
-	result := i.AdapterName
+	l.GetAdapterName()
+	result := l.AdapterName
 
 	// assert
 	if result == "" {

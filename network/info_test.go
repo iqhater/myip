@@ -1,4 +1,4 @@
-package data
+package network
 
 import (
 	"bytes"
@@ -6,16 +6,32 @@ import (
 	"log"
 	"os"
 	"testing"
+
+	"go.uber.org/goleak"
 )
 
-func TestNewIPDataNotNil(t *testing.T) {
+func TestMain(m *testing.M) {
+
+	// clear all connections before checking for leaks
+	if testTransport != nil {
+		cleanupTransport()
+	}
+
+	// check goroutines leaks
+	goleak.VerifyTestMain(m)
+
+	// run tests
+	os.Exit(m.Run())
+}
+
+func TestNewInfoNotNil(t *testing.T) {
 
 	// act
-	result := NewIPData()
+	result := NewInfo()
 
 	// assert
 	if result == nil {
-		t.Errorf("IPData is nil! %s\n", result)
+		t.Errorf("Info is nil! %s\n", result)
 	}
 }
 
